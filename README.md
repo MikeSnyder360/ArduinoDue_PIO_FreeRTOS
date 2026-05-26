@@ -107,27 +107,6 @@ The 256-byte alignment satisfies the VTOR alignment requirement for a 61-entry
 
 ---
 
-### 4. Serial port
-
-The Arduino Due exposes two USB ports:
-
-| Port | VID:PID | macOS device | Purpose |
-|------|---------|--------------|---------|
-| Programming port | `2341:003D` | `/dev/cu.usbmodem…` | Upload + monitor |
-| Native USB | `2341:003E` | `/dev/cu.usbmodem…` | `SerialUSB` in firmware |
-
-The native USB port (`SerialUSB`) only enumerates when the firmware is running
-and has called `SerialUSB.begin()`. During early debug — when the firmware may be
-crashing — the port disappears, making it useless for diagnostics. Use `Serial`
-(the programming port) for serial output; it is always present via the ATmega16U2
-bridge.
-
-The `/dev/cu.usbmodemXXXXX` node number is stable while the board stays in the
-same physical USB port. Run `pio device list` to find the current numbers and
-update `platformio.ini` if the board is moved.
-
----
-
 ## Building and flashing
 
 ```sh
